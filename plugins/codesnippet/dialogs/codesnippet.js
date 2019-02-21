@@ -39,24 +39,6 @@
 					id: 'info',
 					elements: [
 						{
-							id: 'lang',
-							type: 'select',
-							label: lang.language,
-							items: langSelectItems,
-							setup: function( widget ) {
-								if ( widget.ready && widget.data.lang )
-									this.setValue( widget.data.lang );
-
-								// The only way to have an empty select value in Firefox is
-								// to set a negative selectedIndex.
-								if ( CKEDITOR.env.gecko && ( !widget.data.lang || !widget.ready ) )
-									this.getInputElement().$.selectedIndex = -1;
-							},
-							commit: function( widget ) {
-								widget.setData( 'lang', this.getValue() );
-							}
-						},
-						{
 							id: 'code',
 							type: 'textarea',
 							label: lang.codeContents,

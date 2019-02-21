@@ -26,11 +26,11 @@
 		}
 	} );
 
-	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', quote: 'blockquote', code: 'code', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol' },
+	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', quote: 'blockquote', code: 'code', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', attachment: 'div' },
 		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', code: 'code', li: '*' },
 		tagnameMap = { strong: 'b', em: 'i', u: 'u', li: '*', ul: 'list', ol: 'list', code: 'code', a: 'link', img: 'img', blockquote: 'quote' },
 		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align' },
-		attributesMap = { url: 'href', email: 'mailhref', quote: 'cite', list: 'listType' };
+		attributesMap = { url: 'href', email: 'mailhref', quote: 'cite', list: 'listType', attachment: 'attachid' };
 
 	// List of block-like tags.
 	var dtd = CKEDITOR.dtd,
@@ -599,9 +599,22 @@
 						element.children = [ quoted ];
 						var citeText = element.attributes.cite;
 						if ( citeText ) {
+							var parts = citeText.split( ' ' );
 							var cite = new CKEDITOR.htmlParser.element( 'cite' );
-							cite.add( new CKEDITOR.htmlParser.text( citeText.replace( /^"|"$/g, '' ) ) );
+
+							cite.add( new CKEDITOR.htmlParser.text( parts[0].replace( /^"|"$/g, '' ) ) );
 							delete element.attributes.cite;
+
+							if ( typeof parts[1] !== 'undefined' ) {
+								element.attributes.postid = parts[1].split('=')[1];
+							}
+							if ( typeof parts[2] !== 'undefined' ) {
+								element.attributes.time = parts[2].split('=')[1];
+							}
+							if ( typeof parts[3] !== 'undefined' ) {
+								element.attributes.userid = parts[3].split('=')[1];
+							}
+
 							element.children.unshift( cite );
 						}
 					},
@@ -694,7 +707,7 @@
 									citeText = cite.name == 'cite' && cite.children[ 0 ].value;
 
 								if ( citeText ) {
-									value = '"' + citeText + '"';
+									value = '"' + citeText + '" post_id=' + element.attributes.postid + ' time=' + element.attributes.time + ' user_id=' + element.attributes.userid;
 									element.children = quoted.children;
 								}
 
@@ -736,6 +749,11 @@
 					},
 
 					div: function( element ) {
+						if ( typeof element.attributes.attachid !== 'undefined' ) {
+							element.name = 'attachment';
+							element.attributes.option = element.attributes.attachid;
+						}
+
 						var alignment = CKEDITOR.tools.parseCssText( element.attributes.style, 1 )[ 'text-align' ] || '';
 
 						if ( alignment ) {
@@ -752,7 +770,10 @@
 							return false;
 					}
 				}
-			}, 1 );
+			}, {
+				priority: 1,
+				applyToAll: true,
+			} );
 
 			editor.dataProcessor.writer = writer;
 
