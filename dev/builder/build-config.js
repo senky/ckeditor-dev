@@ -7,7 +7,6 @@
 
 var CKBUILDER_CONFIG = {
 	skin: 'moono-lisa',
-	preset: 'basic',
 	ignore: [
 		'bender.js',
 		'bender.ci.js',
