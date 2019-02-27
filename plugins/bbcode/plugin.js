@@ -50,6 +50,11 @@
 	}
 
 	// Maintain the map of smiley-to-description.
+	var smileyMap = {};
+	for ( var i = 0; i < senky_simplewysiwyg_smiley_descriptions.length; i++ ) {
+		smileyMap[senky_simplewysiwyg_smiley_names[i]] = senky_simplewysiwyg_smiley_descriptions[i];
+	}
+
 	// jscs:disable maximumLineLength
 	var smileyMap = { smiley: ':)', sad: ':(', wink: ';)', laugh: ':D', cheeky: ':P', blush: ':*)', surprise: ':-o', indecision: ':|', angry: '>:(', angel: 'o:)', cool: '8-)', devil: '>:-)', crying: ';(', kiss: ':-*' },
 	// jscs:enable maximumLineLength
@@ -772,7 +777,7 @@
 				}
 			}, {
 				priority: 1,
-				applyToAll: true,
+				applyToAll: true
 			} );
 
 			editor.dataProcessor.writer = writer;
