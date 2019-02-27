@@ -50,24 +50,24 @@
 	}
 
 	// Maintain the map of smiley-to-description.
-	var smileyMap = {};
-	for ( var i = 0; i < senky_simplewysiwyg_smiley_descriptions.length; i++ ) {
-		smileyMap[senky_simplewysiwyg_smiley_names[i]] = senky_simplewysiwyg_smiley_descriptions[i];
-	}
-
-	// jscs:disable maximumLineLength
-	var smileyMap = { smiley: ':)', sad: ':(', wink: ';)', laugh: ':D', cheeky: ':P', blush: ':*)', surprise: ':-o', indecision: ':|', angry: '>:(', angel: 'o:)', cool: '8-)', devil: '>:-)', crying: ';(', kiss: ':-*' },
-	// jscs:enable maximumLineLength
-		smileyReverseMap = {},
+	var smileyMap = {},
 		smileyRegExp = [];
+	for ( var i = 0; i < senky_simplewysiwyg_smiley_descriptions.length; i++ ) {
+		smileyMap[senky_simplewysiwyg_smiley_descriptions[i]] = senky_simplewysiwyg_smiley_descriptions[i];
+	}
 
 	// Build regexp for the list of smiley text.
 	for ( var i in smileyMap ) {
-		smileyReverseMap[ smileyMap[ i ] ] = i;
-		smileyRegExp.push( smileyMap[ i ].replace( /\(|\)|\:|\/|\*|\-|\|/g, function( match ) {
+		//smileyReverseMap[ smileyMap[ i ] ] = i;
+		smileyRegExp.push( smileyMap[ i ].replace( /\(|\)|\:|\/|\*|\-|\?|\|/g, function( match ) {
 			return '\\' + match;
 		} ) );
 	}
+
+	// longer smilies first
+	smileyRegExp.sort(function ( a, b ) {
+		return b.length - a.length;
+	});
 
 	smileyRegExp = new RegExp( smileyRegExp.join( '|' ), 'g' );
 
@@ -396,7 +396,7 @@
 						// Create smiley from text emotion.
 						piece.replace( smileyRegExp, function( match, index ) {
 							addElement( new CKEDITOR.htmlParser.text( piece.substring( lastIndex, index ) ), currentNode );
-							addElement( new CKEDITOR.htmlParser.element( 'smiley', { desc: smileyReverseMap[ match ] } ), currentNode );
+							addElement( new CKEDITOR.htmlParser.element( 'smiley', { desc: smileyMap[ match ] } ), currentNode );
 							lastIndex = index + match.length;
 						} );
 
