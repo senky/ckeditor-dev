@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	// %REMOVE_START%
-	config.plugins = 'autogrow,attachment,basicstyles,bbcode,blockquote,clipboard,colorbutton,enterkey,entities,font,image,indentlist,link,list,magicline,smiley,sourcearea,toolbar,undo,wysiwygarea';
+	config.plugins = 'autogrow,attachment,basicstyles,bbcode,blockquote,codesnippet,clipboard,colorbutton,enterkey,entities,font,image,indentlist,link,list,magicline,smiley,sourcearea,toolbar,undo,wysiwygarea';
 	// %REMOVE_END%
 };
 

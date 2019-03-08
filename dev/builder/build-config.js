@@ -130,6 +130,7 @@ var CKBUILDER_CONFIG = {
 		'bbcode' : 1,
 		'blockquote' : 1,
 		'clipboard' : 1,
+		'codesnippet' : 1,
 		'colorbutton' : 1,
 		'enterkey' : 1,
 		'entities' : 1,
