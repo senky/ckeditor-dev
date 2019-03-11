@@ -30,7 +30,7 @@
 		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', code: 'code', li: '*' },
 		tagnameMap = { strong: 'b', em: 'i', u: 'u', li: '*', ul: 'list', ol: 'list', code: 'code', a: 'link', img: 'img', blockquote: 'quote' },
 		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align' },
-		attributesMap = { url: 'href', email: 'mailhref', quote: 'cite', list: 'listType', attachment: 'attachid' };
+		attributesMap = { url: 'href', email: 'mailhref', quote: 'cite', list: 'listType', attachment: 'data-attachid' };
 
 	// List of block-like tags.
 	var dtd = CKEDITOR.dtd,
@@ -754,9 +754,9 @@
 					},
 
 					div: function( element ) {
-						if ( typeof element.attributes.attachid !== 'undefined' ) {
+						if ( typeof element.attributes['data-attachid'] !== 'undefined' ) {
 							element.name = 'attachment';
-							element.attributes.option = element.attributes.attachid;
+							element.attributes.option = element.attributes['data-attachid'];
 						}
 
 						var alignment = CKEDITOR.tools.parseCssText( element.attributes.style, 1 )[ 'text-align' ] || '';

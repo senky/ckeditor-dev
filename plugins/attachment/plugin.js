@@ -3,7 +3,7 @@ CKEDITOR.plugins.add( 'attachment', {
 	init: function ( editor ) {
 		editor.widgets.add('attachment', {
 			upcast: function( element ) {
-				return element.name == 'div' && typeof element.attributes.attachid !== 'undefined';
+				return element.name == 'div' && typeof element.attributes['data-attachid'] !== 'undefined';
 			}
 		});
 	}
