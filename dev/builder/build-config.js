@@ -6,7 +6,6 @@
 var CKBUILDER_CONFIG = {
 	skin: 'moono-lisa',
 	preset: 'basic',
-	customConfig: false,
 	ignore: [
 		'.DS_Store',
 		'.bender',
@@ -62,6 +61,7 @@ var CKBUILDER_CONFIG = {
 		'plugins/contextmenu',
 		'plugins/copyformatting',
 		'plugins/devtools',
+		'plugins/dialog',
 		'plugins/dialogadvtab',
 		'plugins/div',
 		'plugins/divarea',
