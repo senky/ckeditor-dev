@@ -594,6 +594,7 @@
 				fragment.writeHtml( writer, bbcodeFilter );
 				return writer.getHtml( true );
 			}
+			CKEDITOR.BBCodeToHtml = BBCodeToHtml;
 
 			var bbcodeFilter = new CKEDITOR.htmlParser.filter();
 			bbcodeFilter.addRules( {
