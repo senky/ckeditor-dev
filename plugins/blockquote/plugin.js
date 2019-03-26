@@ -119,11 +119,17 @@
 
 				// Now we have all the blocks to be included in a new blockquote node.
 				var bqBlock = editor.document.createElement( 'blockquote' );
+
+				// insert new line after quote element
 				bqBlock.insertBefore( paragraphs[ 0 ] );
+				if (typeof bqBlock.$.after != 'undefined') {
+					bqBlock.$.after( editor.document.createElement( 'br' ).$ );
+				}
 				while ( paragraphs.length > 0 ) {
 					block = paragraphs.shift();
 					bqBlock.append( block );
 				}
+
 			} else if ( state == CKEDITOR.TRISTATE_ON ) {
 				var moveOutNodes = [],
 					database = {};
