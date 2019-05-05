@@ -459,7 +459,7 @@
 					}
 				},
 				onLoad: function() {
-					if ( dialogType != 'image' )
+					//if ( dialogType != 'image' )
 						this.hidePage( 'Link' ); //Hide Link tab.
 					var doc = this._.element.getDocument();
 
