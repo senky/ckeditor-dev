@@ -592,7 +592,11 @@
 					writer = new CKEDITOR.htmlParser.basicWriter();
 
 				fragment.writeHtml( writer, bbcodeFilter );
-				return writer.getHtml( true );
+				var output = writer.getHtml( true );
+				if (output) {
+					output += '<br>&nbsp;';
+				}
+				return output;
 			}
 			CKEDITOR.BBCodeToHtml = BBCodeToHtml;
 
